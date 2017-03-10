@@ -70,18 +70,26 @@ namespace OPR1
     +-----------------------------+
 */
 
+        private double h = 0.5;
+
         private void clearInterface()
         {
-            dataGridView1.RowCount = 0;
+            dataGridView1.Rows.Clear();
             dataGridView1.ColumnCount = 0;
             chart1.Series.Clear();
             chart1.Series.Add("Значения");
+            chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             chart1.Series.Add("Экстремум");
+            chart1.Series[1].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             chart1.Series.Add("Усл. Экстремум");
+            chart1.Series[2].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             chart3.Series.Clear();
             chart3.Series.Add("11");
+            chart3.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             chart3.Series.Add("22");
+            chart3.Series[1].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             chart3.Series.Add("33");
+            chart3.Series[2].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
         }
 
         private void methodDirectThroughGrid()
@@ -99,7 +107,7 @@ namespace OPR1
                 l = 0;
                 for (double x2 = -1; x2 <= 4; x2 += h)
                 {
-                    if (x1 + x2 <= 2 && x1 >= 0 && x2 >= 0)
+                    if (condition(x1,x2))
                     {
                         double res = fun(x1, x2);
                         if (min > res)
@@ -184,7 +192,7 @@ namespace OPR1
 
 /*
     +-----------------------------+
-    | direct-through-grid method  |
+    |     Monte Carlo method      |
     +-----------------------------+
 */
         public List<double> value = new List<double>();
@@ -193,17 +201,23 @@ namespace OPR1
 
         private void methodMonteCarlo()
         {
+            clearInterface();
+
             Random r = new Random();
             int imin = -1, imax = 4; double x1 = 0, x2 = 0;
+           
             for (int i = 0; i < 121; i++)
             {
                 x1 = imin + r.NextDouble() * (imax - imin);
                 x2 = imin + r.NextDouble() * (imax - imin);
-                if (Math.Pow(x1, 2) - 6 * x1 + 4 * x2 - 11 >= 0 && 3 * x2 - x1 * x2 + Math.Exp(x1 - 3) - 1 >= 0)
+                if (condition(x1,x2))
                 {
-                    x1L.Add(Math.Round(x1, 2)); x2L.Add(Math.Round(x2, 2)); value.Add(Math.Round(fun(x1, x2), 5));
+                    x1L.Add(Math.Round(x1, 2)); 
+                    x2L.Add(Math.Round(x2, 2)); 
+                    value.Add(Math.Round(fun(x1, x2), 5));
                 }
             }
+
             int k1 = 0;
             for (int i = 0; i < x1L.Count; i++)
             {
@@ -262,9 +276,5 @@ namespace OPR1
                 }
             }
         }
-
-
-
-
     }
 }
