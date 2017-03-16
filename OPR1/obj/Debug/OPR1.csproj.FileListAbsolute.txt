@@ -1,0 +1,85 @@
+c:\users\саша\documents\visual studio 2015\Projects\OPR1\OPR1\bin\Debug\OPR1.exe.config
+c:\users\саша\documents\visual studio 2015\Projects\OPR1\OPR1\bin\Debug\OPR1.exe
+c:\users\саша\documents\visual studio 2015\Projects\OPR1\OPR1\bin\Debug\OPR1.pdb
+c:\users\саша\documents\visual studio 2015\Projects\OPR1\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache
+c:\users\саша\documents\visual studio 2015\Projects\OPR1\OPR1\obj\Debug\OPR1.Form1.resources
+c:\users\саша\documents\visual studio 2015\Projects\OPR1\OPR1\obj\Debug\OPR1.Properties.Resources.resources
+c:\users\саша\documents\visual studio 2015\Projects\OPR1\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
+c:\users\саша\documents\visual studio 2015\Projects\OPR1\OPR1\obj\Debug\OPR1.exe
+c:\users\саша\documents\visual studio 2015\Projects\OPR1\OPR1\obj\Debug\OPR1.pdb
+C:\Users\Саша\Documents\Visual Studio 2015\Projects\OPR1 — копия\OPR1\bin\Debug\OPR1.exe.config
+C:\Users\Саша\Documents\Visual Studio 2015\Projects\OPR1 — копия\OPR1\obj\Debug\OPR1.exe
+C:\Users\Саша\Documents\Visual Studio 2015\Projects\OPR1 — копия\OPR1\obj\Debug\OPR1.pdb
+C:\Users\Саша\Documents\Visual Studio 2015\Projects\OPR1 — копия\OPR1\bin\Debug\OPR1.exe
+C:\Users\Саша\Documents\Visual Studio 2015\Projects\OPR1 — копия\OPR1\bin\Debug\OPR1.pdb
+C:\Users\Саша\Documents\Visual Studio 2015\Projects\OPR1 — копия\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache
+C:\Users\Саша\Documents\Visual Studio 2015\Projects\OPR1 — копия\OPR1\obj\Debug\OPR1.Form1.resources
+C:\Users\Саша\Documents\Visual Studio 2015\Projects\OPR1 — копия\OPR1\obj\Debug\OPR1.Properties.Resources.resources
+C:\Users\Саша\Documents\Visual Studio 2015\Projects\OPR1 — копия\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
+F:\OPR1 — копия\OPR1\bin\Debug\OPR1.exe.config
+F:\OPR1 — копия\OPR1\obj\Debug\OPR1.exe
+F:\OPR1 — копия\OPR1\obj\Debug\OPR1.pdb
+F:\OPR1 — копия\OPR1\bin\Debug\OPR1.exe
+F:\OPR1 — копия\OPR1\bin\Debug\OPR1.pdb
+F:\OPR1 — копия\OPR1\bin\Debug\mscorlib.dll
+F:\OPR1 — копия\OPR1\bin\Debug\System.Net.Http.dll
+F:\OPR1 — копия\OPR1\bin\Debug\System.Net.Http.xml
+F:\OPR1 — копия\OPR1\bin\Debug\ru\mscorlib.resources.dll
+F:\OPR1 — копия\OPR1\bin\Debug\ru\System.Net.Http.resources.dll
+F:\OPR1 — копия\OPR1\bin\Debug\normidna.nlp
+F:\OPR1 — копия\OPR1\bin\Debug\normnfc.nlp
+F:\OPR1 — копия\OPR1\bin\Debug\normnfd.nlp
+F:\OPR1 — копия\OPR1\bin\Debug\normnfkc.nlp
+F:\OPR1 — копия\OPR1\bin\Debug\normnfkd.nlp
+F:\OPR1 — копия\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache
+F:\OPR1 — копия\OPR1\obj\Debug\OPR1.Form1.resources
+F:\OPR1 — копия\OPR1\obj\Debug\OPR1.Properties.Resources.resources
+F:\OPR1 — копия\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
+C:\Users\Yarosh\Desktop\OPR1 — копия\OPR1\bin\Debug\OPR1.exe.config
+C:\Users\Yarosh\Desktop\OPR1 — копия\OPR1\obj\Debug\OPR1.exe
+C:\Users\Yarosh\Desktop\OPR1 — копия\OPR1\obj\Debug\OPR1.pdb
+C:\Users\Yarosh\Desktop\OPR1 — копия\OPR1\bin\Debug\OPR1.exe
+C:\Users\Yarosh\Desktop\OPR1 — копия\OPR1\bin\Debug\OPR1.pdb
+C:\Users\Yarosh\Desktop\OPR1 — копия\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache
+C:\Users\Yarosh\Desktop\OPR1 — копия\OPR1\obj\Debug\OPR1.Form1.resources
+C:\Users\Yarosh\Desktop\OPR1 — копия\OPR1\obj\Debug\OPR1.Properties.Resources.resources
+C:\Users\Yarosh\Desktop\OPR1 — копия\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
+G:\OPR1 — копия\OPR1\bin\Debug\OPR1.exe.config
+G:\OPR1 — копия\OPR1\obj\Debug\OPR1.exe
+G:\OPR1 — копия\OPR1\obj\Debug\OPR1.pdb
+G:\OPR1 — копия\OPR1\bin\Debug\OPR1.exe
+G:\OPR1 — копия\OPR1\bin\Debug\OPR1.pdb
+G:\OPR1 — копия\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache
+G:\OPR1 — копия\OPR1\obj\Debug\OPR1.Form1.resources
+G:\OPR1 — копия\OPR1\obj\Debug\OPR1.Properties.Resources.resources
+G:\OPR1 — копия\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
+D:\Универ\3 курс\2 семестр\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\bin\Debug\OPR1.exe.config
+D:\Универ\3 курс\2 семестр\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\obj\Debug\OPR1.exe
+D:\Универ\3 курс\2 семестр\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\obj\Debug\OPR1.pdb
+D:\Универ\3 курс\2 семестр\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\bin\Debug\OPR1.exe
+D:\Универ\3 курс\2 семестр\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\bin\Debug\OPR1.pdb
+D:\Универ\3 курс\2 семестр\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache
+D:\Универ\3 курс\2 семестр\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\obj\Debug\OPR1.Form1.resources
+D:\Универ\3 курс\2 семестр\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\obj\Debug\OPR1.Properties.Resources.resources
+D:\Универ\3 курс\2 семестр\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
+E:\study\1_Study\BarsuEngineeringFaculty\all\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\bin\Debug\OPR1.exe.config
+E:\study\1_Study\BarsuEngineeringFaculty\all\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\obj\Debug\OPR1.exe
+E:\study\1_Study\BarsuEngineeringFaculty\all\ОПР\Лаборатоные работы\Лаба 1\OPR1\OPR1\obj\Debug\OPR1.pdb
+E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\bin\Debug\OPR1.exe.config
+E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.exe
+E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.pdb
+E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\bin\Debug\OPR1.exe
+E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\bin\Debug\OPR1.pdb
+E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache
+E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.Form1.resources
+E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.Properties.Resources.resources
+E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\bin\Debug\OPR1.exe.config
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.exe
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.pdb
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\bin\Debug\OPR1.exe
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\bin\Debug\OPR1.pdb
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.Form1.resources
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.Properties.Resources.resources
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
