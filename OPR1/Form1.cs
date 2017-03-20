@@ -215,6 +215,26 @@ namespace OPR1
                     x1L.Add(Math.Round(x1, 2)); 
                     x2L.Add(Math.Round(x2, 2)); 
                     value.Add(Math.Round(fun(x1, x2), 5));
+                    
+                    
+                    double zoom = 3.5;                    
+                    double w = 1 / zoom;
+                    double temp_value = value[value.Count - 1];
+                    int rr = ((int)temp_value >> 16) & 0xFF;
+                    if (((x1L[x1L.Count - 1] > -w) && (x1L[x1L.Count - 1] < w)) || ((x2L[x2L.Count - 1] > -w) && (x2L[x2L.Count - 1] < w)))
+                    { 
+                        temp_value = 0xFFFFFF; 
+                    }
+                    if ((rr > 230) && (rr < 255))
+                    { 
+                        temp_value = 0; 
+                    }
+                    else
+                    { 
+                        temp_value = 0xFFFFFF; 
+                    }
+                    //chart3.Series[1].Points.Add(temp_value);
+                    chart3.Series[2].Points.AddXY(x1L[x1L.Count - 1], x2L[x2L.Count - 1]);
                 }
             }
 
@@ -276,5 +296,36 @@ namespace OPR1
                 }
             }
         }
+
+
+        /*
+#include "Math.hpp"
+#include "math.h"
+....................
+void __fastcall TForm1::FormPaint(TObject *Sender)
+{
+    int  h_1=Form1->ClientHeight;
+    int  w_1=Form1->ClientWidth;
+    float zoom = 3.5;
+	float w = 1/zoom;
+	for (int i=0;i<w_1;i++)
+	{
+		for (int j=0;j<h_1;j++)
+		{
+		    float x = (w_1/2-i)/zoom;
+			float y = (h_1/2-j)/zoom;
+			int colour = SimpleRoundTo(5*(x+y)*(x*y)/(x*x*y*y+1)+sqrt(x*x*y*y+1));
+		 	if (((x > -w) && (x < w)) ||
+			 ((y > -w) && (y < w)))
+			 {colour = 0xFFFFFF;}
+                        if ((GetRValue(colour)>230)&&(GetRValue(colour)<255))
+                         {colour=0;}
+                        else
+                        {colour=0xFFFFFF;}
+			Form1->Canvas->Pixels[i][j]=colour;
+		}
+	}
+}
+         */
     }
 }
