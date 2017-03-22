@@ -74,12 +74,11 @@ E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.cspro
 E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.Form1.resources
 E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.Properties.Resources.resources
 E:\study\1_Study\BarsuEngineeringFaculty\ОПР\1\OPR1\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
-E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\bin\Debug\OPR1.exe.config
-E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.exe
-E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.pdb
 E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\bin\Debug\OPR1.exe
-E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\bin\Debug\OPR1.pdb
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\bin\Debug\OPR1.exe.config
 E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache
 E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.Form1.resources
 E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.Properties.Resources.resources
 E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.exe
+E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.pdb

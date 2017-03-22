@@ -20,9 +20,19 @@ namespace OPR1
             comboBox1.SelectedIndex = 0;
         }
 
+        double funDfDx1(double _x1, double _x2)
+        {
+            return (-6 - 2 * _x2);
+        }
+
+        double funDfDx2(double _x1, double _x2)
+        {
+            return (4 * _x2 - 2 * _x1 + 4 * _x2);
+        }
+
         double fun(double _x1, double _x2)
         {
-            return (-6 * _x1 + Math.Pow(_x2, 2) - 2 * _x1 * _x2 + Math.Pow(_x2, 2));
+            return (-6 * _x1 + 2 * Math.Pow(_x2, 2) - 2 * _x1 * _x2 + 2 * Math.Pow(_x2, 2));
         }
 
         Boolean condition(double _x1, double _x2)
@@ -296,6 +306,219 @@ namespace OPR1
                 }
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+        public float f(float x, float y)
+        {
+            float f1;
+            f1 = 2 * x * x * x * x - 3 * x * x + 4 * y * y;
+            return f1;
+        }
+
+//Вводим функцию для частной производной df/dx:
+
+        public float df_dx(float x, float y)
+        {
+            float f2;
+            f2 = 8 * x * x * x - 6 * x;
+            return f2;
+        }
+
+//Вводим функцию для частной производной df/dy:
+
+        public float df_dy(float x, float y)
+        {
+            float f3;
+            f3 = 8 * y;
+            return f3;
+        }
+        */
+        float f(float _x1, float _x2)
+        {
+            return (-6 - 2 * _x2);
+        }
+
+        float df_dx(float _x1, float _x2)
+        {
+            return (4 * _x2 - 2 * _x1 + 4 * _x2);
+        }
+
+        float df_dy(float _x1, float _x2)
+        {
+            return (-6 * _x1 + 2 * (float)Math.Pow(_x2, 2) - 2 * _x1 * _x2 + 2 * (float)Math.Pow(_x2, 2));
+        }
+
+//Объявляем перо для рисования линий уровня:
+
+        Pen myPen;
+
+//Загружаем функции для рисования линий уровня:
+
+        private void Form1_Load_1(object sender, EventArgs e)
+        {
+            //Создаем экземпляр пера с цветом и толщиной:
+            myPen = new Pen(Color.Black, 0);
+
+            //Связываем графический элемент PictureBox1 с объектом g класса Graphics:
+            Bitmap bmp = new Bitmap(pictureBox1.ClientSize.Width, pictureBox1.ClientSize.Height);
+            Graphics g = Graphics.FromImage(bmp);
+
+            //Определяем преобразования для масштабирования и рисования линий на PictureBox в интервале
+            //-2 <= x <= 2, -1.5 <= y <= 1.5:
+            float x_min = -1f;
+            float x_max = 4f;
+            float y_min = -1f;
+            float y_max = 4f;
+
+            g.ScaleTransform(bmp.Width / (x_max - x_min), bmp.Height / (y_max - y_min));
+            g.TranslateTransform(-x_min, -y_min, System.Drawing.Drawing2D.MatrixOrder.Prepend);
+
+            //Вызываем функцию для рисования линий уровня:
+            for (int LevelCurves = -3; LevelCurves <= 25; LevelCurves++)
+            {
+                PlotLevelCurve(g, Convert.ToSingle(LevelCurves / 4), -4f, 4f, -4f, 4f, 0.05f, 1f, 1f, 0.002f);
+            }
+
+            //Показываем результат рисования:
+            pictureBox1.Image = bmp;
+        }
+
+/*
+Ниже этого кода записываем следующие вспомогательные методы.
+Листинг 40.2. Вспомогательные методы.
+*/
+//Находим точку на линии:
+
+        float initial_delta = 0.1f;
+        private void FindPointOnCurve(ref float x, ref float y, float LevelCurves, float start_x, float start_y, float tolerance)
+        {
+            float dx = 0, dy = 0, dz, delta, f_xy;
+            int direction = 0;
+
+            //Начальная точка:
+            x = start_x; y = start_y; delta = initial_delta;
+
+            //В бесконечном цикле do-while выходим через break:
+            int i = 0;
+            do
+            {
+                f_xy = f(x, y); dz = LevelCurves - f_xy;
+                if (Math.Abs(dz) < tolerance) break;
+
+                //Анализируем направление:
+                if (Math.Sign(dz) != direction)
+                {
+                    //Изменяем направление. Уменьшаем delta:
+                    delta = delta / 2;
+                    direction = Math.Sign(dz);
+                }
+
+                //Рассчитываем градиент:
+                Gradient(x, y, ref dx, ref dy);
+                if ((Math.Abs(dx) + Math.Abs(dy)) < 0.001) break;
+
+                //Перемещаемся направо:
+                x = x + dx * delta * (float)direction;
+                y = y + dy * delta * (float)direction;
+            }
+            while (i < 1);
+        }
+
+//Рассчитываем градиент в этой точке:
+        private void Gradient(float x, float y, ref float dx, ref float dy)
+        {
+            float dist = 0;
+            dx = df_dx(x, y); dy = df_dy(x, y);
+            dist = Convert.ToSingle(Math.Sqrt(dx * dx + dy * dy));
+
+            if (Math.Abs(dist) < 0.0001)
+            {
+                dx = 0; dy = 0;
+            }
+            else
+            {
+                dx = dx / dist; dy = dy / dist;
+            }
+        }
+
+//Рисуем линию уровня f(x, y) = LevelCurves:
+        private void PlotLevelCurve(Graphics g,float LevelCurves, float x_min, float x_max, float y_min,float y_max, float step_size,float start_x, float start_y,float tolerance)
+        {
+            int num_points = 0;
+            float x0 = 0, y0 = 0, x1, y1, x2, y2, dx = 0, dy = 0;
+
+            //Находим точку (x0, y0) на линии уровня LevelCurves:
+            FindPointOnCurve(ref x0, ref y0, LevelCurves,
+            start_x, start_y, tolerance);
+
+            //Начало:
+            num_points = 1;
+
+            //Следующая линия уровня LevelCurves:
+            x2 = x0; y2 = y0;
+
+            //В бесконечном цикле do-while выходим через break:
+            int i = 0;
+            do
+            {
+
+                x1 = x2; y1 = y2;
+
+                //Находим следующую точку на линии:
+                Gradient(x2, y2, ref dx, ref dy);
+                if ((Math.Abs(dx) + Math.Abs(dy)) < 0.001) break;
+                    x2 = x2 + dy * step_size;
+
+                y2 = y2 - dx * step_size;
+                FindPointOnCurve(ref x2, ref y2, LevelCurves, x2, y2, tolerance);
+
+                //Рисуем до этой точки:
+                g.DrawLine(myPen, x1, y1, x2, y2);
+                num_points = num_points + 1;
+
+                //Смотрим,находится ли точка вне области рисования:
+                if (x2 < x_min) break;
+                if (x2 > x_max) break;
+                if (y2 < y_min) break;
+                if (y2 > y_max) break;
+
+                //Если мы ушли более чем на 4 точки, то смотрим не пришли ли мы в начало:
+                if (num_points >= 4)
+                {
+                    if (Math.Sqrt((x0 - x2) * (x0 - x2) + (y0 - y2) * (y0 - y2)) <= step_size * 1.1)
+                    {
+                        g.DrawLine(myPen, x2, y2, x0, y0);
+                        break;
+                    }
+                }
+            } while (i < 1);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /*
