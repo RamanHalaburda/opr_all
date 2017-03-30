@@ -290,7 +290,12 @@ namespace OPR1
                 {
                     if (i == j)
                     {
-                        dataGridView1.Rows[i].Cells[i].Value = Math.Round(value[i - 1], 2);
+                        
+
+                        
+                        LevelLine ll = new LevelLine(chart3);
+                        ll.DrawLine(value[i - 1]);
+                        
                         if (value[i - 1] == value.Min())
                         {
                             dataGridView1.Rows[i].Cells[i].Style.BackColor = System.Drawing.Color.Aqua;
@@ -298,9 +303,11 @@ namespace OPR1
                             dataGridView1.Rows[0].Cells[i].Style.BackColor = System.Drawing.Color.Aqua;
                             textBox1.Visible = true;
                             textBox1.Text = Convert.ToString(dataGridView1.Rows[i].Cells[i].Value);
+                            dataGridView1.Rows[i].Cells[i].Value = Math.Round(value[i - 1], 2);
                             //label2.Text = Convert.ToString(dataGridView1.Rows[i].Cells[0].Value);
                             //label3.Text = Convert.ToString(dataGridView1.Rows[0].Cells[i].Value);
                         }
+                        
                     }
                     else dataGridView1.Rows[i].Cells[j].Value = " - ";
                 }
