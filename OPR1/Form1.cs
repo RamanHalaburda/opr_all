@@ -12,7 +12,20 @@ namespace OPR1
 {
     public partial class Form1 : Form
     {
-        public Form1(){ InitializeComponent(); }
+        public Form1()
+        { 
+            InitializeComponent();
+            //groupBox3.Visible = false;
+            g = pictureBox1.CreateGraphics();
+            pictureBox1.Image = (Image)new Bitmap(pictureBox1.Width, pictureBox1.Height); //Сетка
+            Graphics graph = Graphics.FromImage(pictureBox1.Image);
+            Pen p = new Pen(Color.Gray, 1);
+            for (int i = 0; i < 50; i++)
+            {
+                graph.DrawLine(p, new Point((pictureBox1.Width / 50 * (i + 1)), 0), new Point((pictureBox1.Width / 50 * (i + 1)), pictureBox1.Height));
+                graph.DrawLine(p, new Point(0, (pictureBox1.Height / 50 * (i + 1))), new Point(pictureBox1.Width, (pictureBox1.Height / 50 * (i + 1))));
+            }
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -30,6 +43,7 @@ namespace OPR1
             return (4 * _x2 - 2 * _x1 + 4 * _x2);
         }
 
+        // Hyperbolic cylinder
         double fun(double _x1, double _x2)
         {
             return (-6 * _x1 + 2 * Math.Pow(_x2, 2) - 2 * _x1 * _x2 + 2 * Math.Pow(_x2, 2));
@@ -43,7 +57,40 @@ namespace OPR1
             }
             return false;
         }
-        
+
+        private void monte_carlo()
+        {
+            LineLevel ll = new LineLevel(chart1);
+            double extremum;
+
+            Monte_Carlo mc = new Monte_Carlo();
+
+            extremum = mc.monteCarlo();
+            List<ExtremumCoordinates> extremumCoordinatesList = mc.getExtremumCoordinatesList();
+
+            dataGridView1.RowCount = extremumCoordinatesList.Count;
+            dataGridView1.ColumnCount = 3;
+            dataGridView1.Columns[0].HeaderText = "x1";
+            dataGridView1.Columns[1].HeaderText = "x2";
+            dataGridView1.Columns[2].HeaderText = "extremum";
+
+            for (int i = 0; i < extremumCoordinatesList.Count; i++)
+            {
+                ll.DrawLine(extremumCoordinatesList[i].getExtremum());
+
+                dataGridView1.Rows[i].Cells[0].Value = extremumCoordinatesList[i].getX1();
+                dataGridView1.Rows[i].Cells[1].Value = extremumCoordinatesList[i].getX2();
+                dataGridView1.Rows[i].Cells[2].Value = extremumCoordinatesList[i].getExtremum();
+                if (extremumCoordinatesList[i].getExtremum() == extremum)
+                {
+                    this.label1.Text = extremumCoordinatesList[i].getExtremum().ToString();
+                    this.label2.Text = extremumCoordinatesList[i].getX1().ToString();
+                    this.label3.Text = extremumCoordinatesList[i].getX2().ToString();
+                    ll.pointExtremum(extremumCoordinatesList[i].getX1(), extremumCoordinatesList[i].getX2());
+                }
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -56,7 +103,8 @@ namespace OPR1
                         break;
                     case 1:
                         clearInterface();
-                        methodMonteCarlo();
+                        //methodMonteCarlo();
+                        monte_carlo();
                         break;
                     case 2:
                         clearInterface();
@@ -209,10 +257,13 @@ namespace OPR1
         public List<double> x1L = new List<double>();
         public List<double> x2L = new List<double>();
 
+        Graphics g;
+
         private void methodMonteCarlo()
         {
             clearInterface();
 
+            /*
             Random r = new Random();
             int imin = -1, imax = 4; double x1 = 0, x2 = 0;
            
@@ -274,8 +325,74 @@ namespace OPR1
             buildGrid();
             chart1.Series[k1].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             chart1.Series[k1].Points.AddXY(xx, yy);
-        }
+            */
 
+            double x1min = -1;
+            double x1max = 4;
+            double x2min = -1;
+            double x2max = 4;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.Columns.Add("Column" + System.Convert.ToString(1), "x1");
+
+            dataGridView1.Columns.Add("Column" + System.Convert.ToString(2), "x2");
+
+            dataGridView1.Columns.Add("Column" + System.Convert.ToString(3), "z");
+
+
+            int n = 20 /*System.Convert.ToInt32(textBox1.Text)*/;
+
+            double x1, x2, f;
+            double min = 10000;
+            double minx1 = 0.0, minx2 = 0.0;
+            Random r = new Random();
+
+            dataGridView1.ColumnHeadersVisible = true;
+            dataGridView1.Columns[0].HeaderCell.Value = "x1";
+            dataGridView1.Columns[1].HeaderCell.Value = "x2";
+            dataGridView1.Columns[2].HeaderCell.Value = "z";
+
+            for (int i = 0; i < n; i++)
+            {
+                dataGridView1.Rows.Add();
+                dataGridView1.Rows[i].HeaderCell.Value = System.Convert.ToString(i);
+                //NextDouble Возвращает случайное число с плавающей запятой, которое больше или равно 0,0 и меньше 1,0
+                x1 = r.NextDouble() * (Math.Abs(x1max) + Math.Abs(x1min)) + x1min;
+                x2 = r.NextDouble() * (Math.Abs(x2max) + Math.Abs(x2min)) + x2min;
+                f = fun(x1, x2);
+
+                if ((condition(x1, x2) == true) && (f < min))
+                {
+                    min = f;
+                    minx1 = x1;
+                    minx2 = x2;
+                }
+
+                dataGridView1[0, i].Value = System.Convert.ToString(x1.ToString("F2"));
+                dataGridView1[1, i].Value = System.Convert.ToString(x2.ToString("F2"));
+                dataGridView1[2, i].Value = System.Convert.ToString(f.ToString("F2"));
+            }
+
+            label1.Text = minx1.ToString("F5");
+            label2.Text = minx2.ToString("F5");
+            label3.Text = min.ToString("F5");
+
+
+            // start build level line
+            int size = pictureBox1.Width;
+            x1 = -1; // -1
+            x2 = 4; // 6
+            int razm = Convert.ToInt32(x2 - x1);
+            for (double i = 0; i < razm; i += 0.5)
+            {
+                double X0 = (razm - x2) * (size / razm);
+                double Y0 = (razm - x2) * (size / razm);
+                int z = Convert.ToInt32(fun(i, i) * (pictureBox1.Width / razm));
+                
+                g.DrawEllipse(new Pen(Color.Red,2),Convert.ToInt32(X0 - z/2 ), Convert.ToInt32(Y0 - z/2), z, z);                
+            }
+            // finish bild level line
+        }
+        /*
         private void buildGrid()
         {
             dataGridView1.RowCount = x1L.Count + 1; dataGridView1.ColumnCount = x2L.Count + 1;
@@ -290,9 +407,6 @@ namespace OPR1
                 {
                     if (i == j)
                     {
-                        
-
-                        
                         LevelLine ll = new LevelLine(chart3);
                         ll.DrawLine(value[i - 1]);
                         
@@ -313,7 +427,7 @@ namespace OPR1
                 }
             }
         }
-
+        */
 
 
 
