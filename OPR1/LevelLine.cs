@@ -51,7 +51,7 @@ namespace OPR1
             this.series = new Series("f(x) = " + extremum);
             for (float x1 = -1; x1 <= 4; x1 += 0.001f)
             {
-                for (float x2 = -1; x2 <= 4; x2 += 0.001f)
+                for (float x2 = -1; x2 <= 4; x2 += 0.002f)
                 {
                     //double x2 = getX2(Math.Round(x1,4), extremum);
                     if (Math.Round(f(x1, x2),3) == Math.Round(extremum,3))

@@ -80,8 +80,7 @@ namespace OPR1
                     this.label3.Text = extremumCoordinatesList[i].getX2().ToString();
                     ll.pointExtremum(extremumCoordinatesList[i].getX1(), extremumCoordinatesList[i].getX2());
                 }
-            }
-            dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
+            }            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -92,14 +91,14 @@ namespace OPR1
                 {
                     case 0:
                         clearInterface();
-                        textBox1.Visible = true;
-                        methodDirectThroughGrid();
-                        dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                         label1.Visible = false;
                         label2.Visible = false;
                         label3.Visible = false;
-                        chart1.Visible = true;
-                        chart3.Visible = false;
+                        groupBox1.Visible = true;
+                        groupBox2.Visible = false;
+                        textBox1.Visible = true;
+                        methodDirectThroughGrid();
+                        dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);                        
                         break;
                     case 1:
                         clearInterface();
@@ -107,10 +106,15 @@ namespace OPR1
                         label2.Visible = true;
                         label3.Visible = true;
                         textBox1.Visible = false;
-                        chart1.Visible = true;
-                        chart3.Visible = false;
+                        groupBox2.Visible = true;
+                        groupBox1.Visible = false;
+                        groupBox2.Size = new Size(746,542);
+                        chart3.Size = new Size(720, 520);
+                        groupBox2.Location = new Point(259,12);
                         //methodMonteCarlo();
-                        monte_carlo();                        
+                        monte_carlo();
+                        //dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
+                        
                         break;
                     case 2:
                         clearInterface();
@@ -158,7 +162,7 @@ namespace OPR1
 
         private void methodDirectThroughGrid()
         {
-            dataGridView1.RowCount = 20; dataGridView1.ColumnCount = 20;
+            dataGridView1.RowCount = 20; dataGridView1.ColumnCount = 10;
             double h = 0.5,
                 x = 0,
                 y = 0,
