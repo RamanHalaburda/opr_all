@@ -9,14 +9,14 @@ namespace OPR1
 {
     class LineLevel
     {
-        private Chart chart1;
+        private Chart chart;
         private Series series;
 
-        public LineLevel(Chart chart1)
+        public LineLevel(Chart _chart)
         {
-            this.chart1 = chart1;
-            chart1.Series.Clear();
-            chart1.Legends.Clear();
+            this.chart = _chart;
+            _chart.Series.Clear();
+            _chart.Legends.Clear();
         }
 
         /*Этот метод выводит на график точку экстемума
@@ -30,7 +30,7 @@ namespace OPR1
             {
                 settingsSeries();
                 series.Color = System.Drawing.Color.Red;
-                chart1.Series.Add(series);
+                chart.Series.Add(series);
             }
             catch (ArgumentException)
             {
@@ -38,11 +38,11 @@ namespace OPR1
             }
         }
 
-        private double f(float x1, float x2)
+        private double f(float _x1, float _x2)
         {
             //return  Math.Pow(x1, 2) + Math.Pow(x2, 2) - 16 * x1 - 10 * x2;
             //return 2 * x1 - Math.Pow(x1, 2) + Math.Pow(x2, 2);
-            return (-6 * x1 + 2 * Math.Pow(x2, 2) - 2 * x1 * x2 + 2 * Math.Pow(x2, 2));
+            return (-6 * _x1 + 2 * Math.Pow(_x2, 2) - 2 * _x1 * _x2 + 2 * Math.Pow(_x2, 2));
         }
 
         /*
@@ -73,7 +73,7 @@ namespace OPR1
                     settingsSeries();
                     try
                     {
-                        chart1.Series.Add(series);
+                        chart.Series.Add(series);
                     }
                     catch (ArgumentException)
                     {
@@ -82,7 +82,7 @@ namespace OPR1
         }
 
         private void clearSeries(){
-            while (chart1.Series.Count > 0) { chart1.Series.RemoveAt(0); }
+            while (chart.Series.Count > 0) { chart.Series.RemoveAt(0); }
         }
 
         private void settingsSeries()
@@ -90,7 +90,7 @@ namespace OPR1
             series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point; // тут сами поизменяет/повыбирайте тип вывода графика
             series.Color = System.Drawing.Color.FromArgb(255, randomValue(), 0, randomValue());
             series.BorderWidth = 1;
-            chart1.ChartAreas[0].AxisX.LabelStyle.Format = "F1";
+            chart.ChartAreas[0].AxisX.LabelStyle.Format = "F1";
         }
 
         private double getX2(double x1, double extremum)

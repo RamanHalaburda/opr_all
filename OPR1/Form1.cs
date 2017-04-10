@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace OPR1
 {
@@ -22,17 +23,7 @@ namespace OPR1
             textBox1.Visible = false;
             comboBox1.SelectedIndex = 0;
         }
-
-        double funDfDx1(double _x1, double _x2)
-        {
-            return (-6 - 2 * _x2);
-        }
-
-        double funDfDx2(double _x1, double _x2)
-        {
-            return (4 * _x2 - 2 * _x1 + 4 * _x2);
-        }
-
+        
         // Hyperbolic cylinder
         double fun(double _x1, double _x2)
         {
@@ -80,7 +71,55 @@ namespace OPR1
                     this.label3.Text = extremumCoordinatesList[i].getX2().ToString();
                     ll.pointExtremum(extremumCoordinatesList[i].getX1(), extremumCoordinatesList[i].getX2());
                 }
-            }            
+            }         
+        }
+
+        private void hooke_jeeves(Double _startX1, Double _startX2, Double _step, Double _accuracy)
+        {
+            chart3.Series.Clear();
+            LevelLine ll = new LevelLine(chart1);
+            HookeJeeves hookeJeeves = new HookeJeeves();
+            ExtremumCoordinates ec = hookeJeeves.extremumFunction(_startX1, _startX2, _step, _accuracy);
+            MessageBox.Show("Экстремум " + ec.getExtremum().ToString() + " x1= " + ec.getX1() + " x2 = " + ec.getX2());
+
+            List<ExtremumCoordinates> extremumCoordinatesList = hookeJeeves.getExtremumCoordinatesList();
+
+            Series series = new Series("way");
+            Series seriesPoint = new Series("point");
+
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series.Color = System.Drawing.Color.Black;
+            series.BorderWidth = 3;
+
+            dataGridView1.RowCount = extremumCoordinatesList.Count;
+            dataGridView1.ColumnCount = 3;
+            dataGridView1.Columns[0].HeaderText = "X1";
+            dataGridView1.Columns[1].HeaderText = "X2";
+            dataGridView1.Columns[2].HeaderText = "MIN";
+
+            for (double extremum = 0; extremum < 4; extremum += 0.25)
+            {
+                ll.DrawLine(extremum);
+            }
+
+            for (int i = 0; i < extremumCoordinatesList.Count; i++)
+            {
+                dataGridView1.Rows[i].Cells[0].Value = extremumCoordinatesList[i].getX1();
+                dataGridView1.Rows[i].Cells[1].Value = extremumCoordinatesList[i].getX2();
+                dataGridView1.Rows[i].Cells[2].Value = extremumCoordinatesList[i].getExtremum();
+                double x1 = extremumCoordinatesList[i].getX1();
+                double x2 = extremumCoordinatesList[i].getX2();
+                series.Points.AddXY(x1, x2);
+
+                if (extremumCoordinatesList[i].getExtremum() == ec.getExtremum())
+                {
+                    this.label1.Text = Math.Round(extremumCoordinatesList[i].getExtremum(), 2).ToString();
+                    this.label2.Text = Math.Round(extremumCoordinatesList[i].getX1(), 2).ToString();
+                    this.label3.Text = Math.Round(extremumCoordinatesList[i].getX2(), 2).ToString();
+                    ll.pointExtremum(extremumCoordinatesList[i].getX1(), extremumCoordinatesList[i].getX2());
+                }
+            }
+            chart3.Series.Add(series);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -118,7 +157,16 @@ namespace OPR1
                         break;
                     case 2:
                         clearInterface();
-                        MessageBox.Show("Этот метод еще не реализован!");
+                        Double startX1 = 0, startX2 = 0, step = 0, accuracy = 0;
+                        if (Double.TryParse(textBox2.Text, out startX1) &&
+                            Double.TryParse(textBox3.Text, out startX2) &&
+                            Double.TryParse(textBox4.Text, out step) &&
+                            Double.TryParse(textBox5.Text, out accuracy))
+                        {
+                            hooke_jeeves(startX1, startX2, step, accuracy);
+                            //MessageBox.Show("Этот метод еще не реализован!");
+                        }
+                        else throw new Exception("Заполните начальную точку, шаг и точность!");
                         break;
                     case 3:
                         clearInterface();
@@ -138,7 +186,7 @@ namespace OPR1
     +-----------------------------+
 */
 
-        private double h = 0.5;
+        //private double h = 0.5;
 
         private void clearInterface()
         {
@@ -267,7 +315,7 @@ namespace OPR1
         public List<double> x1L = new List<double>();
         public List<double> x2L = new List<double>();
 
-        Graphics g;
+        //Graphics g;
 
         private void methodMonteCarlo()
         {
@@ -339,6 +387,31 @@ namespace OPR1
             }
              */ 
             // finish bild level line
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch(comboBox1.SelectedIndex)
+            {
+                case 0:
+                    groupBox3.Visible = false;
+                    textBox1.Visible = true;
+                    groupBox1.Visible = true;
+                    groupBox2.Visible = false;
+                    label1.Visible = label2.Visible = label3.Visible = false;
+                    break;
+                case 1:
+                    label1.Visible = label2.Visible = label3.Visible = true;
+                    groupBox2.Visible = true;
+                    groupBox1.Visible = false;
+                    break;
+                case 2:   
+                    textBox1.Visible = false;
+                    groupBox3.Visible = true;
+                    groupBox1.Visible = false;
+                    groupBox2.Visible = true;
+                    break;
+            }
         }             
     }
 }

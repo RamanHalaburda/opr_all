@@ -55,7 +55,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="LevelLine.cs" />
+    <Compile Include="HookeJeeves.cs" />
+    <Compile Include="LevelLine.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LineLevel.cs" />
     <Compile Include="Monte-Carlo.cs" />
     <Compile Include="Program.cs" />

@@ -21,9 +21,9 @@ namespace OPR1
 
         /*Этот метод выводит на график точку экстемума
          на основонии полученых координат от вызывающей программы.*/
-        public void pointExtremum(double x1 , double x2)
+        public void pointExtremum(double x1, double x2)
         {
-         //Выводим на график точку с получеными координатами
+            //Выводим на график точку с получеными координатами
             this.series = new Series("extremum");
             series.Points.AddXY(x1, x2);
             try
@@ -54,7 +54,7 @@ namespace OPR1
                 for (float x2 = -1; x2 <= 4; x2 += 0.002f)
                 {
                     //double x2 = getX2(Math.Round(x1,4), extremum);
-                    if (Math.Round(f(x1, x2),3) == Math.Round(extremum,3))
+                    if (Math.Round(f(x1, x2), 3) == Math.Round(extremum, 3))
                     {
                         series.Points.AddXY(x1, x2);
                         //series.Points.AddXY(x1, -x2);
@@ -73,7 +73,8 @@ namespace OPR1
             }
         }
 
-        private void clearSeries(){
+        private void clearSeries()
+        {
             while (chart1.Series.Count > 0) { chart1.Series.RemoveAt(0); }
         }
 
@@ -87,7 +88,7 @@ namespace OPR1
 
         private double getX2(double x1, double extremum)
         {
-            return Math.Round(Math.Sqrt(Math.Pow(x1, 2) - 2 * x1 + extremum),3);
+            return Math.Round(Math.Sqrt(Math.Pow(x1, 2) - 2 * x1 + extremum), 3);
         }
 
         private int randomValue()
@@ -103,9 +104,9 @@ namespace OPR1
             double first_border = 2 * Math.Pow(x1, 2) + 3 * Math.Pow(x2, 2);
             if (first_border <= 6 && x1 >= 0 && x2 >= 0)
             {
-            /*double first_border = Math.Pow(x1, 2) - 6 * x1 + 4 * x2 - 11;
-            double second_border = 3*x2 - x1*x2 + Math.Exp(x1-3) - 1;
-            if (first_border >= 0 && second_border >= 0){*/
+                /*double first_border = Math.Pow(x1, 2) - 6 * x1 + 4 * x2 - 11;
+                double second_border = 3*x2 - x1*x2 + Math.Exp(x1-3) - 1;
+                if (first_border >= 0 && second_border >= 0){*/
                 return true;
             }
             return false;
