@@ -103,18 +103,8 @@ namespace OPR1
          Если точка входит в ограничения высчитываем функцию с отнятым шагом.
          Если значение функции с добавленым шагом меньше значения функции в базисной точке, то заменить значение координаты. 
          */
-        /*
-        private bool borderOn(double x1, double x2)
-        {
-            double first_border = 2 * Math.Pow(x1, 2) + 3 * Math.Pow(x2, 2);
-            if (first_border <= 6 && x1 >= 0 && x2 >= 0)
-            {
-                return true;
-            }
-            return false;
-        }*/
 
-        Boolean condition(double _x1, double _x2)
+        private bool condition(double _x1, double _x2)
         {
             if (_x1 + _x2 <= 2 && _x1 >= 0 && _x2 >= 0)
             {
