@@ -11,6 +11,7 @@ namespace OPR1
     {
         private Chart chart1;
         private Series series;
+        Random rand = new Random((int)DateTime.Now.Ticks);
 
         public LevelLine(Chart chart1)
         {
@@ -93,8 +94,8 @@ namespace OPR1
 
         private int randomValue()
         {
-            Random rand = new Random((int)DateTime.Now.Ticks);
-            System.Threading.Thread.Sleep(1);
+            
+            //System.Threading.Thread.Sleep(1);
             int ksi = rand.Next(255);
             return ksi;
         }

@@ -39,8 +39,6 @@ namespace OPR1
             return false;
         }
 
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -89,7 +87,16 @@ namespace OPR1
                         break;
                     case 3:
                         clearInterface();
-                        MessageBox.Show("Этот метод еще не реализован!");
+
+                        startX1 = 0; startX2 = 0; step = 0; accuracy = 0;
+                        if (Double.TryParse(textBox2.Text, out startX1) &&
+                            Double.TryParse(textBox3.Text, out startX2) &&
+                            Double.TryParse(textBox4.Text, out step) &&
+                            Double.TryParse(textBox5.Text, out accuracy))
+                        {
+                            HookeJeevesWithShtrFun(startX1, startX2, step, accuracy);
+                        }
+
                         break;
                     default:
                         MessageBox.Show("Error!");
@@ -98,6 +105,8 @@ namespace OPR1
             }
             catch (Exception exx) { MessageBox.Show(""+exx); }
         }
+
+
 
 /*
     +-----------------------------+
@@ -254,6 +263,54 @@ namespace OPR1
             chart3.Series.Clear();
             LevelLine ll = new LevelLine(chart3);
             HookeJeeves hookeJeeves = new HookeJeeves();
+            ExtremumCoordinates ec = hookeJeeves.extremumFunction(_startX1, _startX2, _step, _accuracy);
+            MessageBox.Show("Экстремум " + ec.getExtremum().ToString() + " x1= " + ec.getX1() + " x2 = " + ec.getX2());
+
+            List<ExtremumCoordinates> extremumCoordinatesList = hookeJeeves.getExtremumCoordinatesList();
+
+            Series series = new Series("way");
+            Series seriesPoint = new Series("point");
+
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series.Color = System.Drawing.Color.Black;
+            series.BorderWidth = 3;
+
+            dataGridView1.RowCount = extremumCoordinatesList.Count;
+            dataGridView1.ColumnCount = 3;
+            dataGridView1.Columns[0].HeaderText = "X1";
+            dataGridView1.Columns[1].HeaderText = "X2";
+            dataGridView1.Columns[2].HeaderText = "MIN";
+
+            for (double extremum = 0; extremum < 4; extremum += 0.25)
+            {
+                ll.DrawLine(extremum);
+            }
+
+            for (int i = 0; i < extremumCoordinatesList.Count; i++)
+            {
+                dataGridView1.Rows[i].Cells[0].Value = extremumCoordinatesList[i].getX1();
+                dataGridView1.Rows[i].Cells[1].Value = extremumCoordinatesList[i].getX2();
+                dataGridView1.Rows[i].Cells[2].Value = extremumCoordinatesList[i].getExtremum();
+                double x1 = extremumCoordinatesList[i].getX1();
+                double x2 = extremumCoordinatesList[i].getX2();
+                series.Points.AddXY(x1, x2);
+
+                if (extremumCoordinatesList[i].getExtremum() == ec.getExtremum())
+                {
+                    this.label1.Text = Math.Round(extremumCoordinatesList[i].getExtremum(), 2).ToString();
+                    this.label2.Text = Math.Round(extremumCoordinatesList[i].getX1(), 2).ToString();
+                    this.label3.Text = Math.Round(extremumCoordinatesList[i].getX2(), 2).ToString();
+                    ll.pointExtremum(extremumCoordinatesList[i].getX1(), extremumCoordinatesList[i].getX2());
+                }
+            }
+            chart3.Series.Add(series);
+        }
+
+        private void HookeJeevesWithShtrFun(Double _startX1, Double _startX2, Double _step, Double _accuracy)
+        {
+            chart3.Series.Clear();
+            LevelLine ll = new LevelLine(chart3);
+            HookeJeevesWithShtrafFun hookeJeeves = new HookeJeevesWithShtrafFun();
             ExtremumCoordinates ec = hookeJeeves.extremumFunction(_startX1, _startX2, _step, _accuracy);
             MessageBox.Show("Экстремум " + ec.getExtremum().ToString() + " x1= " + ec.getX1() + " x2 = " + ec.getX2());
 
