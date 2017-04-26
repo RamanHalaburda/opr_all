@@ -310,7 +310,7 @@ namespace OPR1
         {
             chart3.Series.Clear();
             LevelLine ll = new LevelLine(chart3);
-            HookeJeevesWithShtrafFun hookeJeeves = new HookeJeevesWithShtrafFun();
+            HookeJeevesPenalty hookeJeeves = new HookeJeevesPenalty();
             ExtremumCoordinates ec = hookeJeeves.extremumFunction(_startX1, _startX2, _step, _accuracy);
             MessageBox.Show("Экстремум " + ec.getExtremum().ToString() + " x1= " + ec.getX1() + " x2 = " + ec.getX2());
 
@@ -372,6 +372,20 @@ namespace OPR1
                     groupBox3.Visible = false;
                     break;
                 case 2:
+                    label1.Visible = label2.Visible = label3.Visible = false;
+                    textBox2.Text = textBox3.Text = "0,0";
+                    textBox4.Text = "0,2";
+                    textBox5.Text = "0,1";
+                    textBox1.Visible = false;
+                    groupBox1.Visible = false;
+                    groupBox2.Visible = true;
+                    groupBox3.Visible = true;
+                    groupBox2.Location = new Point(259, 138);
+                    groupBox2.Size = new Size(746, 398);
+                    groupBox3.Location = new Point(259, 4);
+                    chart3.Dock = DockStyle.Fill;
+                    break;
+                case 3:
                     label1.Visible = label2.Visible = label3.Visible = false;
                     textBox2.Text = textBox3.Text = "0,0";
                     textBox4.Text = "0,2";

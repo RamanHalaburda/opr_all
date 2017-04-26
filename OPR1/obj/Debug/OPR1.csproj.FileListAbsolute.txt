@@ -6,4 +6,3 @@ E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.P
 E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.csproj.GenerateResource.Cache
 E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.exe
 E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.pdb
-E:\study\1_Study\BarsuEngineeringFaculty\mvs_3c_2s\opr_all\OPR1\obj\Debug\OPR1.csprojResolveAssemblyReference.cache

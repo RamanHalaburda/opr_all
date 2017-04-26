@@ -56,7 +56,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="HookeJeeves.cs" />
-    <Compile Include="HookeJeevesWithShtrafFun.cs" />
+    <Compile Include="HookeJeevesPenalty.cs" />
     <Compile Include="LevelLine.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace OPR1
 {
-    class HookeJeevesWithShtrafFun : HookeJeeves
+    class HookeJeevesPenalty : HookeJeeves
     {
         private String typePenalty;
-
-        const int COUNT_OF_BORDER = 3;
-
-        public HookeJeevesWithShtrafFun()
+        
+        public HookeJeevesPenalty()
         {
             typePenalty = "Штраф квадрата срезки";
         }
@@ -25,25 +23,22 @@ namespace OPR1
              return (-6 * _x1 + 2 * Math.Pow(_x2, 2) - 2 * _x1 * _x2 + 2 * Math.Pow(_x2, 2) + r * g(_x1, _x2));
         }
 
-        private double g(double x1,double x2)
+        private double g(double _x1,double _x2)
         {
             double g = 0;
-            double[] border ={-2 * Math.Pow(x1, 2) - 3 * Math.Pow(x2, 2) + 6,
-                                 x1,
-                                 x2};
+            double[] condition ={-_x1 - _x2 + 2, _x1, _x2};
 
             if (typePenalty.Equals("Штраф квадрата срезки"))
             {
-                for (int m = 0; m < COUNT_OF_BORDER; m++)
+                for (int i = 0; i < condition.Length; i++)
                 {
-                    if (border[m] >= 0)
+                    if (condition[i] >= 0)
                     {
-
                         g += 0;
                     }
                     else
                     {
-                        g += Math.Pow(border[m],2);
+                        g += Math.Pow(condition[i],2);
                     }
                 }
             }
