@@ -1,4 +1,4 @@
-﻿namespace OPR1
+﻿namespace opr_all
 {
     partial class Form1
     {

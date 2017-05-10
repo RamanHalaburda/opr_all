@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtremumCoordinates.cs" />
+    <Compile Include="Extremums.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,11 +57,8 @@
     </Compile>
     <Compile Include="HookeJeeves.cs" />
     <Compile Include="HookeJeevesPenalty.cs" />
-    <Compile Include="LevelLine.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LineLevel.cs" />
-    <Compile Include="Monte-Carlo.cs" />
+    <Compile Include="LevelLine.cs" />
+    <Compile Include="MonteCarlo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

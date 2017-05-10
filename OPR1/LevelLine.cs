@@ -5,23 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace OPR1
+namespace opr_all
 {
     class LevelLine
     {
-        private Chart chart1;
+        private Chart chart;
         private Series series;
         Random rand = new Random((int)DateTime.Now.Ticks);
 
-        public LevelLine(Chart chart1)
+        public LevelLine(Chart _chart)
         {
-            this.chart1 = chart1;
-            chart1.Series.Clear();
-            chart1.Legends.Clear();
+            this.chart = _chart;
+            _chart.Series.Clear();
+            _chart.Legends.Clear();
         }
 
-        /*Этот метод выводит на график точку экстемума
-         на основонии полученых координат от вызывающей программы.*/
+        // Этот метод выводит на график точку экстемума на основонии полученых координат от вызывающей программы.
         public void pointExtremum(double x1, double x2)
         {
             //Выводим на график точку с получеными координатами
@@ -29,9 +28,9 @@ namespace OPR1
             series.Points.AddXY(x1, x2);
             try
             {
-                settingsSeries();
+                setSeries();
                 series.Color = System.Drawing.Color.Red;
-                chart1.Series.Add(series);
+                chart.Series.Add(series);
             }
             catch (ArgumentException)
             {
@@ -41,32 +40,28 @@ namespace OPR1
 
         private double f(float _x1, float _x2)
         {
-            //return  Math.Pow(x1, 2) + Math.Pow(x2, 2) - 16 * x1 - 10 * x2;
-            //return 2 * x1 - Math.Pow(x1, 2) + Math.Pow(x2, 2);
             return (-6 * _x1 + 2 * Math.Pow(_x2, 2) - 2 * _x1 * _x2 + 2 * Math.Pow(_x2, 2));
         }
 
 
-        public void DrawLine(double extremum)
+        public void drawLine(double extremum)
         {
             this.series = new Series("f(x) = " + extremum);
             for (float x1 = -1; x1 <= 4; x1 += 0.001f)
             {
                 for (float x2 = -1; x2 <= 4; x2 += 0.002f)
                 {
-                    //double x2 = getX2(Math.Round(x1,4), extremum);
                     if (Math.Round(f(x1, x2), 3) == Math.Round(extremum, 3))
                     {
                         series.Points.AddXY(x1, x2);
-                        //series.Points.AddXY(x1, -x2);
                     }
                 }
             }
 
-            settingsSeries();
+            setSeries();
             try
             {
-                chart1.Series.Add(series);
+                chart.Series.Add(series);
             }
             catch (ArgumentException)
             {
@@ -76,38 +71,31 @@ namespace OPR1
 
         private void clearSeries()
         {
-            while (chart1.Series.Count > 0) { chart1.Series.RemoveAt(0); }
+            while (chart.Series.Count > 0) { chart.Series.RemoveAt(0); }
         }
 
-        private void settingsSeries()
+        private void setSeries()
         {
-            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point; // тут сами поизменяет/повыбирайте тип вывода графика
-            series.Color = System.Drawing.Color.FromArgb(255, randomValue(), 0, randomValue());
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series.Color = System.Drawing.Color.FromArgb(255, getRandomValue(), 0, getRandomValue());
             series.BorderWidth = 1;
-            chart1.ChartAreas[0].AxisX.LabelStyle.Format = "F1";
+            chart.ChartAreas[0].AxisX.LabelStyle.Format = "F1";
         }
 
-        private double getX2(double x1, double extremum)
+        private double getX2(double _x1, double _extremum)
         {
-            return Math.Round(Math.Sqrt(Math.Pow(x1, 2) - 2 * x1 + extremum), 3);
+            return Math.Round(Math.Sqrt(Math.Pow(_x1, 2) - 2 * _x1 + _extremum), 3);
         }
 
-        private int randomValue()
-        {
-            
-            //System.Threading.Thread.Sleep(1);
-            int ksi = rand.Next(255);
-            return ksi;
+        private int getRandomValue() // returning Ksi
+        { 
+            return rand.Next(255);
         }
 
-        private bool borderOn(double x1, double x2)
+        private bool conditions(double _x1, double _x2)
         {
-            double first_border = 2 * Math.Pow(x1, 2) + 3 * Math.Pow(x2, 2);
-            if (first_border <= 6 && x1 >= 0 && x2 >= 0)
+            if (_x1 + _x2 <= 2 && _x1 >= 0 && _x2 >= 0)
             {
-                /*double first_border = Math.Pow(x1, 2) - 6 * x1 + 4 * x2 - 11;
-                double second_border = 3*x2 - x1*x2 + Math.Exp(x1-3) - 1;
-                if (first_border >= 0 && second_border >= 0){*/
                 return true;
             }
             return false;

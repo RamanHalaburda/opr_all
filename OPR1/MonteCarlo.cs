@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OPR1
+namespace opr_all
 {
-    public class Monte_Carlo
+    public class MonteCarlo
     {
         private double min;
-        private List<ExtremumCoordinates> extremumCoordinatesList;
+        private List<Extremums> extremumsList;
 
-        public Monte_Carlo()
+        public MonteCarlo()
         {
-            extremumCoordinatesList = new List<ExtremumCoordinates>();
+            extremumsList = new List<Extremums>();
             min = Double.MaxValue;
         }
 
-        public List<ExtremumCoordinates> getExtremumCoordinatesList()
+        public List<Extremums> getExtremumsList()
         {
-            return extremumCoordinatesList;
+            return extremumsList;
         }
 
         public double monteCarlo()
@@ -35,22 +35,22 @@ namespace OPR1
             do
             {
                 double ksi;
-                ksi = randomValue();
+                ksi = getRandomValue();
                 x1 = ximin + ksi * (ximax - ximin);
 
-                ksi = randomValue();
+                ksi = getRandomValue();
                 x2 = ximin + ksi * (ximax - ximin);
 
                 double result = f(x1, x2);
                 double first_border = 2 * x1 * x1 + 3 * x2 * x2;
-                if (borderOn(x1, x2))
+                if (condidions(x1, x2))
                 {
                     if (result < min)
                     {
                         min = result;
-                        ExtremumCoordinates extremumCoordinates = new ExtremumCoordinates();
-                        extremumCoordinates.Add(x1, x2, result);
-                        extremumCoordinatesList.Add(extremumCoordinates);
+                        Extremums extremums = new Extremums();
+                        extremums.Add(x1, x2, result);
+                        extremumsList.Add(extremums);
                     }
                 }
                 i++;
@@ -58,17 +58,16 @@ namespace OPR1
             return min;
         }
 
-        private bool borderOn(double x1, double x2)
+        private bool condidions(double _x1, double _x2)
         {
-            double first_border = 2 * Math.Pow(x1, 2) + 3 * Math.Pow(x2, 2);
-            if (first_border <= 6 && x1 >= 0 && x2 >= 0)
+            if (_x1 + _x2 <= 2 && _x1 >= 0 && _x2 >= 0)
             {
                 return true;
             }
             return false;
         }
 
-        private double randomValue()
+        private double getRandomValue()
         {
             Random rand = new Random((int)DateTime.Now.Ticks);
             System.Threading.Thread.Sleep(1);
@@ -76,9 +75,9 @@ namespace OPR1
             return ksi;
         }
 
-        private double f(double x1, double x2)
+        private double f(double _x1, double _x2)
         {
-            return (-6 * x1 + 2 * Math.Pow(x2, 2) - 2 * x1 * x2 + 2 * Math.Pow(x2, 2));
+            return (-6 * _x1 + 2 * Math.Pow(_x2, 2) - 2 * _x1 * _x2 + 2 * Math.Pow(_x2, 2));
         }
     }
 }

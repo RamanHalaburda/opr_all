@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace OPR1
+namespace opr_all
 {
     public partial class Form1 : Form
     {
@@ -47,9 +47,7 @@ namespace OPR1
                 {
                     case 0:
                         clearInterface();
-                        label1.Visible = false;
-                        label2.Visible = false;
-                        label3.Visible = false;
+                        label1.Visible = label2.Visible = label3.Visible = false;
                         groupBox1.Visible = true;
                         groupBox2.Visible = false;
                         textBox1.Visible = true;
@@ -58,18 +56,14 @@ namespace OPR1
                         break;
                     case 1:
                         clearInterface();
-                        label1.Visible = true;
-                        label2.Visible = true;
-                        label3.Visible = true;
+                        label1.Visible = label2.Visible = label3.Visible = true;
                         textBox1.Visible = false;
                         groupBox2.Visible = true;
                         groupBox1.Visible = false;
                         groupBox2.Size = new Size(746,542);
                         chart3.Size = new Size(720, 520);
                         groupBox2.Location = new Point(259,12);
-                        //methodMonteCarlo();
-                        Monte_Carlo();
-                        //dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
+                        methodMonteCarlo();
                         
                         break;
                     case 2:
@@ -80,8 +74,7 @@ namespace OPR1
                             Double.TryParse(textBox4.Text, out step) &&
                             Double.TryParse(textBox5.Text, out accuracy))
                         {
-                            Hooke_Jeeves(startX1, startX2, step, accuracy);
-                            //MessageBox.Show("Этот метод еще не реализован!");
+                            methodHookeJeeves(startX1, startX2, step, accuracy);
                         }
                         else throw new Exception("Заполните начальную точку, шаг и точность!");
                         break;
@@ -94,25 +87,24 @@ namespace OPR1
                             Double.TryParse(textBox4.Text, out step) &&
                             Double.TryParse(textBox5.Text, out accuracy))
                         {
-                            HookeJeevesWithShtrFun(startX1, startX2, step, accuracy);
+                            methodHookeJeevesWithPenalty(startX1, startX2, step, accuracy);
                         }
-
+                        else throw new Exception("Заполните начальную точку, шаг и точность!");
                         break;
                     default:
                         MessageBox.Show("Error!");
                         break;
                 }
             }
-            catch (Exception exx) { MessageBox.Show(""+exx); }
+            catch (Exception exception) { MessageBox.Show(exception.ToString()); }
         }
-
-
 
 /*
     +-----------------------------+
-    | direct-through-grid method  |
+    | Direct Through Grid method  |
     +-----------------------------+
 */
+
         private void methodDirectThroughGrid()
         {
             dataGridView1.RowCount = 20; dataGridView1.ColumnCount = 10;
@@ -217,15 +209,15 @@ namespace OPR1
     +-----------------------------+
 */
 
-        private void Monte_Carlo()
+        private void methodMonteCarlo()
         {
             LevelLine ll = new LevelLine(chart3);
             double extremum;
 
-            Monte_Carlo mc = new Monte_Carlo();
+            MonteCarlo mc = new MonteCarlo();
 
             extremum = mc.monteCarlo();
-            List<ExtremumCoordinates> extremumCoordinatesList = mc.getExtremumCoordinatesList();
+            List<Extremums> extremumCoordinatesList = mc.getExtremumsList();
 
             dataGridView1.RowCount = extremumCoordinatesList.Count;
             dataGridView1.ColumnCount = 3;
@@ -233,11 +225,10 @@ namespace OPR1
             dataGridView1.Columns[0].HeaderText = "X1";
             dataGridView1.Columns[1].HeaderText = "X2";
             dataGridView1.Columns[2].HeaderText = "MIN";
-            //dataGridView1.colum
 
             for (int i = 0; i < extremumCoordinatesList.Count; i++)
             {
-                ll.DrawLine(extremumCoordinatesList[i].getExtremum());
+                ll.drawLine(extremumCoordinatesList[i].getExtremum());
 
                 dataGridView1.Rows[i].Cells[0].Value = extremumCoordinatesList[i].getX1();
                 dataGridView1.Rows[i].Cells[1].Value = extremumCoordinatesList[i].getX2();
@@ -258,15 +249,18 @@ namespace OPR1
     +-----------------------------+
 */
 
-        private void Hooke_Jeeves(Double _startX1, Double _startX2, Double _step, Double _accuracy)
+        private void methodHookeJeeves(Double _startX1, Double _startX2, Double _step, Double _accuracy)
         {
             chart3.Series.Clear();
             LevelLine ll = new LevelLine(chart3);
             HookeJeeves hookeJeeves = new HookeJeeves();
-            ExtremumCoordinates ec = hookeJeeves.extremumFunction(_startX1, _startX2, _step, _accuracy);
-            MessageBox.Show("Экстремум " + ec.getExtremum().ToString() + " x1= " + ec.getX1() + " x2 = " + ec.getX2());
+            Extremums ec = hookeJeeves.extremumFunction(_startX1, _startX2, _step, _accuracy);
+            String answer = "Экстремум " + ec.getExtremum().ToString() + " x1= " + ec.getX1() + " x2 = " + ec.getX2();
+            MessageBox.Show(answer);
+            textBox1.Visible = true;
+            textBox1.Text = answer;
 
-            List<ExtremumCoordinates> extremumCoordinatesList = hookeJeeves.getExtremumCoordinatesList();
+            List<Extremums> extremumCoordinatesList = hookeJeeves.getExtremumsList();
 
             Series series = new Series("way");
             Series seriesPoint = new Series("point");
@@ -283,7 +277,7 @@ namespace OPR1
 
             for (double extremum = 0; extremum < 4; extremum += 0.25)
             {
-                ll.DrawLine(extremum);
+                ll.drawLine(extremum);
             }
 
             for (int i = 0; i < extremumCoordinatesList.Count; i++)
@@ -306,16 +300,19 @@ namespace OPR1
             chart3.Series.Add(series);
         }
 
-        private void HookeJeevesWithShtrFun(Double _startX1, Double _startX2, Double _step, Double _accuracy)
+/*
+    +------------------------------------------+
+    |     Hooke Jeeves method with penalty     |
+    +------------------------------------------+
+*/
+
+        private void methodHookeJeevesWithPenalty(Double _startX1, Double _startX2, Double _step, Double _accuracy)
         {
             chart3.Series.Clear();
             LevelLine ll = new LevelLine(chart3);
-            HookeJeevesPenalty hookeJeeves = new HookeJeevesPenalty();
-            ExtremumCoordinates ec = hookeJeeves.extremumFunction(_startX1, _startX2, _step, _accuracy);
-            MessageBox.Show("Экстремум " + ec.getExtremum().ToString() + " x1= " + ec.getX1() + " x2 = " + ec.getX2());
-
-            List<ExtremumCoordinates> extremumCoordinatesList = hookeJeeves.getExtremumCoordinatesList();
-
+            HookeJeevesPenalty hookeJeevesPenalty = new HookeJeevesPenalty();
+            List<Extremums> extremums = hookeJeevesPenalty.extremumFunctionWithPenalty(_startX1, _startX2, _step, _accuracy);
+            
             Series series = new Series("way");
             Series seriesPoint = new Series("point");
 
@@ -323,7 +320,7 @@ namespace OPR1
             series.Color = System.Drawing.Color.Black;
             series.BorderWidth = 3;
 
-            dataGridView1.RowCount = extremumCoordinatesList.Count;
+            dataGridView1.RowCount = extremums.Count;
             dataGridView1.ColumnCount = 3;
             dataGridView1.Columns[0].HeaderText = "X1";
             dataGridView1.Columns[1].HeaderText = "X2";
@@ -331,35 +328,49 @@ namespace OPR1
 
             for (double extremum = 0; extremum < 4; extremum += 0.25)
             {
-                ll.DrawLine(extremum);
+                ll.drawLine(extremum);
             }
 
-            for (int i = 0; i < extremumCoordinatesList.Count; i++)
+            Double extr = extremums[0].getExtremum(),
+                extr_x1 = extremums[0].getX1(),
+                extr_x2 = extremums[0].getX2();
+            for (int i = 0; i < extremums.Count; i++)
             {
-                dataGridView1.Rows[i].Cells[0].Value = extremumCoordinatesList[i].getX1();
-                dataGridView1.Rows[i].Cells[1].Value = extremumCoordinatesList[i].getX2();
-                dataGridView1.Rows[i].Cells[2].Value = extremumCoordinatesList[i].getExtremum();
-                double x1 = extremumCoordinatesList[i].getX1();
-                double x2 = extremumCoordinatesList[i].getX2();
+                dataGridView1.Rows[i].Cells[0].Value = extremums[i].getX1();
+                dataGridView1.Rows[i].Cells[1].Value = extremums[i].getX2();
+                dataGridView1.Rows[i].Cells[2].Value = extremums[i].getExtremum();
+                double x1 = extremums[i].getX1();
+                double x2 = extremums[i].getX2();
                 series.Points.AddXY(x1, x2);
 
-                if (extremumCoordinatesList[i].getExtremum() == ec.getExtremum())
+                if (extremums[i].getExtremum() == extremums[0].getExtremum())
                 {
-                    this.label1.Text = Math.Round(extremumCoordinatesList[i].getExtremum(), 2).ToString();
-                    this.label2.Text = Math.Round(extremumCoordinatesList[i].getX1(), 2).ToString();
-                    this.label3.Text = Math.Round(extremumCoordinatesList[i].getX2(), 2).ToString();
-                    ll.pointExtremum(extremumCoordinatesList[i].getX1(), extremumCoordinatesList[i].getX2());
+                    this.label1.Text = Math.Round(extremums[i].getExtremum(), 2).ToString();
+                    this.label2.Text = Math.Round(extremums[i].getX1(), 2).ToString();
+                    this.label3.Text = Math.Round(extremums[i].getX2(), 2).ToString();
+                    ll.pointExtremum(extremums[i].getX1(), extremums[i].getX2());
+                }
+
+                if (extr > extremums[i].getExtremum())
+                {
+                    extr = extremums[i].getExtremum();
+                    extr_x1 = extremums[i].getX1();
+                    extr_x2 = extremums[i].getX2();
                 }
             }
             chart3.Series.Add(series);
+
+            String answer = "Экстремум " + extr + " x1= " + extr_x1 + " x2 = " + extr_x2;
+            MessageBox.Show(answer);
+            textBox1.Visible = true;
+            textBox1.Text = answer;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch(comboBox1.SelectedIndex)
             {
-                case 0:
-                    
+                case 0:                    
                     groupBox3.Visible = false;
                     textBox1.Visible = true;
                     groupBox1.Visible = true;
